@@ -1,0 +1,51 @@
+{
+  "name": "image-optim",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [
+    "optimizer",
+    "image",
+    "image optim",
+    "image optimizer"
+  ],
+  "homepage": "https://github.com/eGavr/image-optim",
+  "bugs": "https://github.com/eGavr/image-optim/issues",
+  "author": {
+    "name": "Evgeniy Gavryushin",
+    "email": "job.egavr@yandex.ru",
+    "url": "https://github.com/eGavr"
+  },
+  "main": "./lib/index.js",
+  "bin": {
+    "image-optim": "./bin/image-optim"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eGavr/image-optim.git"
+  },
+  "dependencies": {
+    "coa": "0.4.1",
+    "q": "1.1.2",
+    "q-io": "1.11.6",
+    "inherit": "2.2.2",
+    "lodash": "2.4.1"
+  },
+  "devDependencies": {
+    "jshint": "2.5.11",
+    "jscs": "1.9.0"
+  },
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "jshint . && jscs -c .jscs.js ."
+  },
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/eGavr/image-optim/blob/master/LICENSE"
+    }
+  ]
+}
