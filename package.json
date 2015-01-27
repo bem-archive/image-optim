@@ -31,12 +31,18 @@
     "lodash": "2.4.1"
   },
   "devDependencies": {
+    "mocha": "1.18.2",
+    "must": "0.11.0",
+    "istanbul": "0.3.0",
+    "mock-fs": "2.3.2",
     "jshint": "2.5.11",
     "jscs": "1.9.0"
   },
   "scripts": {
-    "test": "npm run lint",
-    "lint": "jshint . && jscs -c .jscs.js ."
+    "test": "npm run lint && npm run func-test && npm run cover",
+    "lint": "jshint . && jscs -c .jscs.js .",
+    "func-test": "mocha test/image-optim/",
+    "cover": "istanbul cover _mocha -- test/image-optim/"
   },
   "engines": {
     "node": ">=0.10.0",
