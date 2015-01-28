@@ -35,7 +35,7 @@ describe('image-optim', function () {
     describe('lint', function () {
         it('must lint files', function (done) {
             var files = fs.readdirSync('.'),
-                output = ['1.ext', '2.ext'];
+                output = [{ name: '1.ext', isOptimized: false }, { name: '2.ext', isOptimized: false }];
 
             imageOptim(files, modes.lint, algorithms)
                 .then(function (res) {
@@ -46,7 +46,7 @@ describe('image-optim', function () {
 
         it('must work option \'tolerance\'', function (done) {
             var files = fs.readdirSync('.'),
-                output = [];
+                output = [{ name: '1.ext', isOptimized: true }, { name: '2.ext', isOptimized: true }];
 
             imageOptim(files, modes.lint, algorithms, { tolerance: 1 })
                 .then(function (res) {
