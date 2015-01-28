@@ -1,6 +1,7 @@
 module.exports = {
     excludeFiles: [
-        'node_modules/**'
+        'node_modules/**',
+        'coverage/**'
     ],
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
     requireSpaceBeforeBlockStatements: true,
