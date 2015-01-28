@@ -1,4 +1,5 @@
-var qfs = require('q-io/fs'),
+var Q = require('q'),
+    qfs = require('q-io/fs'),
     File = require('../../../lib/file');
 
 /**
@@ -35,5 +36,12 @@ module.exports = {
     ///
     algorithm2: function (file) {
         return mockCompress(file, '.algorithm2.ext', -1);
+    },
+
+    /**
+     * returns {Promise * Error}
+     */
+    algorithm3: function () {
+        return Q.reject();
     }
 };
