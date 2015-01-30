@@ -45,7 +45,10 @@
     "lint": "jshint . && jscs -c .jscs.js .",
     "unit-test": "mocha test/unit/",
     "func-test": "mocha test/image-optim/",
-    "cover": "istanbul cover _mocha -- test/unit/ test/image-optim/"
+    "cover": "istanbul cover _mocha -- test/unit/ test/image-optim/",
+    "env-setup": "./env-setup",
+    "env-clear": "./env-clear",
+    "postinstall": "npm run env-clear && npm run env-setup"
   },
   "engines": {
     "node": ">=0.10.0",
