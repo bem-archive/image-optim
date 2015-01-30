@@ -28,21 +28,24 @@
     "q": "1.1.2",
     "q-io": "1.11.6",
     "inherit": "2.2.2",
-    "lodash": "2.4.1"
+    "lodash": "2.4.1",
+    "uid": "0.0.2"
   },
   "devDependencies": {
-    "mocha": "1.18.2",
-    "must": "0.11.0",
     "istanbul": "0.3.0",
-    "mock-fs": "2.3.2",
+    "jscs": "1.9.0",
     "jshint": "2.5.11",
-    "jscs": "1.9.0"
+    "mocha": "1.18.2",
+    "mock-fs": "2.3.2",
+    "must": "0.11.0",
+    "sinon": "^1.12.2"
   },
   "scripts": {
-    "test": "npm run lint && npm run func-test && npm run cover",
+    "test": "npm run lint && npm run unit-test && npm run func-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
+    "unit-test": "mocha test/unit/",
     "func-test": "mocha test/image-optim/",
-    "cover": "istanbul cover _mocha -- test/image-optim/"
+    "cover": "istanbul cover _mocha -- test/unit/ test/image-optim/"
   },
   "engines": {
     "node": ">=0.10.0",
