@@ -1,11 +1,17 @@
-# image-optim [![Build Status](https://travis-ci.org/eGavr/image-optim.svg)](https://travis-ci.org/eGavr/image-optim) [![Dependency Status](https://david-dm.org/eGavr/image-optim.svg)](https://david-dm.org/eGavr/image-optim) [![devDependency Status](https://david-dm.org/eGavr/image-optim/dev-status.svg)](https://david-dm.org/eGavr/image-optim#info=devDependencies)
+# image-optim [![Build Status](https://travis-ci.org/eGavr/image-optim.svg)](https://travis-ci.org/eGavr/image-optim) [![Coverage Status](https://coveralls.io/repos/eGavr/image-optim/badge.svg?branch=master)](https://coveralls.io/r/eGavr/image-optim?branch=master) [![Dependency Status](https://david-dm.org/eGavr/image-optim.svg)](https://david-dm.org/eGavr/image-optim) [![devDependency Status](https://david-dm.org/eGavr/image-optim/dev-status.svg)](https://david-dm.org/eGavr/image-optim#info=devDependencies)
 
 Node.js wrapper for some images compression algorithms: [PNGOUT](http://www.advsys.net/ken/util/pngout.htm), [Zopfli](http://googledevelopers.blogspot.co.uk/2013/02/compress-data-more-densely-with-zopfli.html), [Pngcrush](http://pmt.sourceforge.net/pngcrush/), [AdvPng](http://advancemame.sourceforge.net/doc-advpng.html) and [OptiPNG](http://optipng.sourceforge.net/).
+
+## Types
+
+* PNG
+
+Supporting of other types of images are coming soon.
 
 ## Install
 
 ```bash
-$ npm install image-optim
+$ npm install imageOptim
 ```
 
 ## Usage
@@ -13,7 +19,7 @@ $ npm install image-optim
 ### API
 
 ```js
-var imageOptim = require('image-optim');
+var imageOptim = require('imageOptim');
 ```
 
 #### imageOptim.optim
