@@ -25,10 +25,12 @@
   },
   "dependencies": {
     "coa": "0.4.1",
-    "q": "1.1.2",
-    "q-io": "1.11.6",
+    "image-type": "2.0.1",
     "inherit": "2.2.2",
     "lodash": "2.4.1",
+    "q": "1.1.2",
+    "q-io": "1.11.6",
+    "read-chunk": "1.0.1",
     "uid": "0.0.2"
   },
   "devDependencies": {
