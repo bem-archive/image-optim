@@ -35,7 +35,7 @@
     "q": "1.1.2",
     "q-io": "1.11.6",
     "read-chunk": "1.0.1",
-    "uid": "0.0.2"
+    "MD5": "1.2.1"
   },
   "devDependencies": {
     "istanbul": "0.3.0",
