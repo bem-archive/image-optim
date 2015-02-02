@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ROOT=$(cd $(dirname $0); pwd)/compressors
+
+rm -rf $ROOT

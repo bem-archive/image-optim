@@ -1,0 +1,43 @@
+#!/bin/bash
+
+ROOT=$(cd $(dirname $0); pwd)/compressors
+
+mkdir $ROOT
+
+# pngout
+echo 'Installing of PNGOUT...'
+mkdir $ROOT/pngout && cd $_
+curl -L http://static.jonof.id.au/dl/kenutils/pngout-20130221-darwin.tar.gz | tar xz --strip-components=1
+
+cd ..
+
+# zopflipng
+echo 'Installing of Zopflipng...'
+git clone https://github.com/pornel/zopfli.git $ROOT/zopflipng && cd $_
+make zopflipng
+
+cd ..
+
+# pngcrush
+echo 'Installing of Pngcrush..'
+mkdir $ROOT/pngcrush && cd $_
+curl -L http://sourceforge.net/projects/pmt/files/pngcrush/old-versions/1.7/1.7.77/pngcrush-1.7.77.tar.gz/download | tar xz --strip-components=1
+make
+
+cd ..
+
+# advpng
+echo 'Installing of AdvPng...'
+mkdir $ROOT/advpng && cd $_
+curl -L http://sourceforge.net/projects/advancemame/files/advancecomp/1.15/advancecomp-1.15.tar.gz/download | tar xz --strip-component=1
+./configure --prefix=$PWD && make
+make install
+
+cd ..
+
+# optipng
+echo 'Installing of OptiPNG...'
+mkdir $ROOT/optipng && cd $_
+curl -L http://sourceforge.net/projects/optipng/files/OptiPNG/optipng-0.6.5/optipng-0.6.5.tar.gz/download | tar xz --strip-components=1
+./configure -prefix=$PWD && make
+make install
