@@ -1,5 +1,5 @@
 {
-  "name": "image-optim",
+  "name": "imageoptim",
   "version": "0.0.0",
   "description": "Node.js wrapper for some images compression algorithms",
   "keywords": [
@@ -21,7 +21,7 @@
   },
   "main": "./lib/index.js",
   "bin": {
-    "image-optim": "./bin/image-optim"
+    "imageoptim": "./bin/imageoptim"
   },
   "repository": {
     "type": "git",

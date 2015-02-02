@@ -11,7 +11,7 @@ Supporting of other types of images are coming soon.
 ## Install
 
 ```bash
-$ npm install imageOptim
+$ npm install imageoptim
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ $ npm install imageOptim
 ### API
 
 ```js
-var imageOptim = require('imageOptim');
+var imageOptim = require('imageoptim');
 ```
 
 #### imageOptim.optim
@@ -63,11 +63,11 @@ If the file does not exist its exit code will be equal to `2`.
 ### CLI
 
 ```bash
-$ image-optim --help
+$ imageoptim --help
 Node.js wrapper for some images compression algorithms
 
 Usage:
-  image-optim [OPTIONS] [ARGS]
+  imageoptim [OPTIONS] [ARGS]
 
 Options:
   -h, --help : Help
