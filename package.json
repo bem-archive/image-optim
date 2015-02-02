@@ -1,12 +1,16 @@
 {
   "name": "image-optim",
   "version": "0.0.0",
-  "description": "",
+  "description": "Node.js wrapper for some images compression algorithms",
   "keywords": [
     "optimizer",
     "image",
     "image optim",
-    "image optimizer"
+    "image optimizer",
+    "lint",
+    "linter",
+    "image lint",
+    "image linter"
   ],
   "homepage": "https://github.com/eGavr/image-optim",
   "bugs": "https://github.com/eGavr/image-optim/issues",
