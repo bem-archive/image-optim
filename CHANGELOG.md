@@ -4,4 +4,4 @@ History of changes
 0.0.1
 -----
 
-* Initial release.
+* Optimization and linting of PNG images.
