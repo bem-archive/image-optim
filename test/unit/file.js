@@ -1,11 +1,12 @@
 var fs = require('fs'),
     mockFs = require('mock-fs'),
-    File = require('../../lib/file');
+    File = require('../../lib/file'),
+    PNG_IMG = new Buffer([137, 80, 78, 71]);
 
 describe('File', function () {
     beforeEach(function () {
         mockFs({
-            'file.ext': new Buffer(1)
+            'file.ext': PNG_IMG
         });
     });
 
@@ -18,7 +19,17 @@ describe('File', function () {
 
         file.loadSize()
             .then(function () {
-                file.size.must.be.equal(1);
+                file.size.must.be.equal(4);
+            })
+            .then(done, done);
+    });
+
+    it('must load type', function (done) {
+        var file = new File('file.ext');
+
+        file.loadType()
+            .then(function () {
+                file.type.must.be.equal('png');
             })
             .then(done, done);
     });

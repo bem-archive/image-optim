@@ -4,12 +4,13 @@ var Q = require('q'),
     File = require('../../lib/file'),
     modes = require('../../lib/modes'),
     imageOptim = require('../../lib/image-optim'),
+    PNG_IMG = new Buffer([137, 80, 78, 71]),
     algorithm1, algorithm2;
 
 describe('image-optim', function () {
     beforeEach(function () {
         mockFs({
-            'file.ext': new Buffer(10),
+            'file.ext': Buffer.concat([PNG_IMG, new Buffer(6)]),
 
             'file.algorithm1.ext': '',
             'file.algorithm2.ext': ''
@@ -31,7 +32,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 9)));
             algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 8)));
 
-            imageOptim([file], modes.optim, [algorithm1, algorithm2])
+            imageOptim([file], modes.optim, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
@@ -45,7 +46,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
             algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 11)));
 
-            imageOptim([file], modes.optim, [algorithm1, algorithm2])
+            imageOptim([file], modes.optim, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
@@ -56,7 +57,7 @@ describe('image-optim', function () {
             var file = 'fake.ext',
                 output = [{ name: file, exitCode: 2 }];
 
-            imageOptim([file], modes.optim, [algorithm1, algorithm2])
+            imageOptim([file], modes.optim, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
@@ -70,7 +71,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.reject());
             algorithm2.returns(Q.reject());
 
-            imageOptim([file], modes.optim, [algorithm1, algorithm2])
+            imageOptim([file], modes.optim, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     algorithm2.callCount.must.be.equal(0);
                     res.must.be.eql(output);
@@ -87,7 +88,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
             algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 11)));
 
-            imageOptim([file], modes.lint, [algorithm1, algorithm2])
+            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
@@ -101,7 +102,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 9)));
             algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 8)));
 
-            imageOptim([file], modes.lint, [algorithm1, algorithm2])
+            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     algorithm2.callCount.must.be.equal(0);
                     res.must.be.eql(output);
@@ -113,7 +114,7 @@ describe('image-optim', function () {
             var file = 'fake.ext',
                 output = [{ name: file, exitCode: 2 }];
 
-            imageOptim([file], modes.lint, [algorithm1, algorithm2])
+            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
@@ -127,7 +128,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.reject());
             algorithm2.returns(Q.reject());
 
-            imageOptim([file], modes.lint, [algorithm1, algorithm2])
+            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] })
                 .then(function (res) {
                     algorithm2.callCount.must.be.equal(0);
                     res.must.be.eql(output);
@@ -142,7 +143,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
             algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 9)));
 
-            imageOptim([file], modes.lint, [algorithm1, algorithm2], { tolerance: 1 })
+            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] }, { tolerance: 1 })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
