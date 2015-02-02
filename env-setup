@@ -21,7 +21,7 @@ cd ..
 # pngcrush
 echo 'Installing of Pngcrush..'
 mkdir $ROOT/pngcrush && cd $_
-curl -L http://sourceforge.net/projects/pmt/files/pngcrush/old-versions/1.7/1.7.77/pngcrush-1.7.77.tar.gz/download | tar xz --strip-components=1
+curl -L http://sourceforge.net/projects/pmt/files/pngcrush/1.7.83/pngcrush-1.7.83.tar.gz/download | tar xz --strip-components=1
 make
 
 cd ..
