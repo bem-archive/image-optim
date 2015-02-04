@@ -1,0 +1,48 @@
+--- a/src/zopflipng/zopflipng_lib.cc
++++ b/src/zopflipng/zopflipng_lib.cc
+@@ -222,7 +222,7 @@
+
+   return 0;
+ }
+- #include <dispatch/dispatch.h>
++
+ // Use fast compression to check which PNG filter strategy gives the smallest
+ // output. This allows to then do the slow and good compression only on that
+ // filter type.
+@@ -233,6 +233,7 @@
+                                   int numstrategies,
+                                   ZopfliPNGFilterStrategy* strategies,
+                                   bool* enable) {
++  std::vector<unsigned char> out;
+   size_t bestsize = 0;
+   int bestfilter = 0;
+
+@@ -246,23 +247,13 @@
+     windowsize = 4096;
+   }
+
+-  size_t sizes_data[numstrategies];
+-  size_t *sizes = sizes_data;
+-
+-  dispatch_apply(numstrategies, dispatch_get_global_queue(0, 0), ^(size_t i){
+-    std::vector<unsigned char> out;
++  for (int i = 0; i < numstrategies; i++) {
+     out.clear();
+-    const lodepng::State statecopy(inputstate);
+-
+-    unsigned error = TryOptimize(image, w, h, statecopy, bit16, origfile,
++    unsigned error = TryOptimize(image, w, h, inputstate, bit16, origfile,
+                                  strategies[i], false, windowsize, 0, &out);
+-    sizes[i] = error ? 0 : out.size();
+-  });
+-
+-  for (int i = 1; i < numstrategies; i++) {
+-    if (sizes[i]==0) continue;
+-    if (bestsize == 0 || sizes[i] < bestsize) {
+-      bestsize = sizes[i];
++    if (error) return error;
++    if (bestsize == 0 || out.size() < bestsize) {
++      bestsize = out.size();
+       bestfilter = i;
+     }
+   }

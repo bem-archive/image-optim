@@ -28,14 +28,15 @@
     "url": "git://github.com/eGavr/image-optim.git"
   },
   "dependencies": {
+    "MD5": "1.2.1",
     "coa": "0.4.1",
     "image-type": "2.0.1",
     "inherit": "2.2.2",
     "lodash": "2.4.1",
+    "pngout-bin": "2.0.1",
     "q": "1.1.2",
     "q-io": "1.11.6",
-    "read-chunk": "1.0.1",
-    "MD5": "1.2.1"
+    "read-chunk": "1.0.1"
   },
   "devDependencies": {
     "istanbul": "0.3.0",
