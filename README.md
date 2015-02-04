@@ -16,7 +16,7 @@ You can view all the _patches_ which are applied to the algorithms [here](https:
 
 * **optipng.patch** – adds to **OptiPNG** the ability to remove _RGB_ components or transparent pixels in _RGB+alpha_ images.
 
-* **zopflipng.patch** – makes **Zopflipng** work on _Unix_.
+* **zopflipng.patch** – makes **Zopflipng** work on _Linux_.
 
 ## Install
 
