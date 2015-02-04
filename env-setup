@@ -4,14 +4,9 @@ ROOT=$(cd $(dirname $0); pwd)/compressors
 
 mkdir $ROOT
 
-# pngout
-echo 'Installing of PNGOUT...'
-mkdir $ROOT/pngout && cd $_
-curl -L http://static.jonof.id.au/dl/kenutils/pngout-20130221-darwin.tar.gz | tar xz --strip-components=1
+# PNGOUT is installed as node module 'pngout-bin' -> https://github.com/imagemin/pngout-bin
 
-cd ..
-
-# zopflipng
+# Zopflipng
 echo 'Installing of Zopflipng...'
 git clone https://github.com/pornel/zopfli.git $ROOT/zopflipng && cd $_
 patch -p1 < ../../patch/zopflipng.patch
@@ -19,7 +14,7 @@ make zopflipng
 
 cd ..
 
-# pngcrush
+# Pngcrush
 echo 'Installing of Pngcrush..'
 mkdir $ROOT/pngcrush && cd $_
 curl -L http://sourceforge.net/projects/pmt/files/pngcrush/1.7.83/pngcrush-1.7.83.tar.gz/download | tar xz --strip-components=1
@@ -27,7 +22,7 @@ make
 
 cd ..
 
-# advpng
+# AdvPng
 echo 'Installing of AdvPng...'
 mkdir $ROOT/advpng && cd $_
 curl -L http://sourceforge.net/projects/advancemame/files/advancecomp/1.15/advancecomp-1.15.tar.gz/download | tar xz --strip-component=1
@@ -36,7 +31,7 @@ make install
 
 cd ..
 
-# optipng
+# OptiPng
 echo 'Installing of OptiPNG...'
 mkdir $ROOT/optipng && cd $_
 curl -L http://sourceforge.net/projects/optipng/files/OptiPNG/optipng-0.6.5/optipng-0.6.5.tar.gz/download | tar xz --strip-components=1
