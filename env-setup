@@ -14,6 +14,7 @@ cd ..
 # zopflipng
 echo 'Installing of Zopflipng...'
 git clone https://github.com/pornel/zopfli.git $ROOT/zopflipng && cd $_
+patch -p1 < ../../patch/zopflipng.patch
 make zopflipng
 
 cd ..
@@ -39,5 +40,6 @@ cd ..
 echo 'Installing of OptiPNG...'
 mkdir $ROOT/optipng && cd $_
 curl -L http://sourceforge.net/projects/optipng/files/OptiPNG/optipng-0.6.5/optipng-0.6.5.tar.gz/download | tar xz --strip-components=1
+patch -p1 < ../../patch/optipng.patch
 ./configure -prefix=$PWD && make
 make install
