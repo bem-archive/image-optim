@@ -52,7 +52,7 @@ Checks whether the given files can be optimized further.
 **@param** *{Array}* – a list of paths to files to check<br>
 **@param** *{Object}* – options:<br>
 
-  * **tolerance** *{Number}* – sets the _measurement error_ during the check. If the difference in sizes between the raw file and the compressed file is less than or equal to the specified _tolerance_, **image-optim** will consider that the raw file can not be optimized further (default: `0`)
+  * **tolerance** *{Number}* – sets the _measurement error_ in percents. The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value.
 
 **@returns** *{Promise * Array}* – the information about linted files:<br>
 
