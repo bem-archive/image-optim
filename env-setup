@@ -10,6 +10,8 @@ mkdir $ROOT
 # Zopflipng
 echo 'Installing of Zopflipng...'
 git clone https://github.com/pornel/zopfli.git $ROOT/zopflipng && cd $_
+# checkout to the commit --> 'Fix misc cppcheck warnings.'
+git checkout 2038037f74bbe32ee70a314b36bccc7c29168520
 patch -p1 < ../../patch/zopflipng.patch
 make zopflipng
 
