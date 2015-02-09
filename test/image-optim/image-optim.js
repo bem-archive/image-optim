@@ -143,7 +143,7 @@ describe('image-optim', function () {
             algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
             algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 9)));
 
-            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] }, { tolerance: 1 })
+            imageOptim([file], modes.lint, { png: [algorithm1, algorithm2] }, { tolerance: 10 })
                 .then(function (res) {
                     res.must.be.eql(output);
                 })
