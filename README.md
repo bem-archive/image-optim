@@ -52,7 +52,7 @@ Checks whether the given files can be optimized further.
 **@param** *{Array}* – a list of paths to files to check<br>
 **@param** *{Object}* – options:<br>
 
-  * **tolerance** *{Number}* – sets the _measurement error_ in percents. The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value.
+  * **tolerance** *{Number}* – sets the _measurement error_ in percentages. The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value.
 
 **@returns** *{Promise * Array}* – the information about linted files:<br>
 
@@ -85,7 +85,7 @@ Options:
   -h, --help : Help
   -v, --version : Shows the version number
   -l, --lint : Lint mode
-  -t TOLERANCE, --tolerance=TOLERANCE : Tolerance (default: 0)
+  -t TOLERANCE, --tolerance=TOLERANCE : Sets the measurement error in percentages (default: 0)
 
 Arguments:
   FILES : Paths to files (required)
