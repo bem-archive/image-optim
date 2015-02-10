@@ -30,15 +30,18 @@
   "dependencies": {
     "MD5": "1.2.1",
     "coa": "0.4.1",
+    "colors": "1.0.3",
+    "handlebars": "3.0.0",
     "image-type": "2.0.1",
     "inherit": "2.2.2",
-    "lodash": "2.4.1",
+    "lodash": "3.1.0",
     "pngout-bin": "2.0.1",
     "q": "1.1.2",
     "q-io": "1.11.6",
     "read-chunk": "1.0.1"
   },
   "devDependencies": {
+    "html-differ": "1.0.8",
     "istanbul": "0.3.0",
     "jscs": "1.9.0",
     "jshint": "2.5.11",
@@ -50,9 +53,9 @@
   "scripts": {
     "test": "npm run lint && npm run unit-test && npm run func-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "unit-test": "mocha test/unit/",
+    "unit-test": "mocha test/unit/ test/reporters/",
     "func-test": "mocha test/image-optim/",
-    "cover": "istanbul cover _mocha -- test/unit/ test/image-optim/",
+    "cover": "istanbul cover _mocha -- test/unit/ test/reporters/ test/image-optim/",
     "env-setup": "./env-setup",
     "env-clear": "./env-clear",
     "postinstall": "npm run env-clear && npm run env-setup"
