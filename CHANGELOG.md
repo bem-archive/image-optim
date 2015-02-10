@@ -1,6 +1,14 @@
 History of changes
 ==================
 
+0.2.0
+-----
+
+* The value of **tolerance** option is set in percentages.
+* Fixed cases when paths to images contain spaces.
+* Fixed the version of **Zopflipng**.
+* Modified the patch for **Zopflipng**.
+
 0.1.0
 -----
 
