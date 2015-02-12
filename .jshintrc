@@ -21,5 +21,6 @@
     },
 
     "expr": true,
-    "sub": true
+    "sub": true,
+    "laxbreak": true
 }
