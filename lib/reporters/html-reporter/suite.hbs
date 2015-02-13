@@ -1,12 +1,38 @@
-<h1>imageoptim</h1>
+<style>
+    div {
+        display: inline-block;
+    }
+    p {
+        font-family: Arial;
+        display: inherit;
+        margin-right: 60px;
+    }
+</style>
+
+<div>
+    <p><b>Total Images:</b> {{files.length}}</p>
+    {{#if isOptimMode}}
+        <p><b>Saved:</b> <font color="green"><b>{{status.saved}}</b></font> bytes</p>
+    {{else}}
+        <p><b>Optimized:</b> {{status.optimized}}</p>
+        <p>{{#if status.notOptimized}}<b><font color='red'>Not optimized:</font></b> {{status.notOptimized}}{{else}}<b>Not optimized:</b> 0{{/if}}</p>
+    {{/if}}
+    {{#if DOESNT_EXIST}}
+        <p><b><font color='red'>Does not exist:</font></b> {{DOESNT_EXIST}}</p>
+    {{/if}}
+    {{#if CANT_COMPRESS}}
+        <p><b><font color='red'>Compression failed:</font></b> {{CANT_COMPRESS}}</p>
+    {{/if}}
+</div>
+
 <ul>
 {{#if isOptimMode}}
     {{#files}}
-        <li><b>{{name}}</b> - {{#optimReport exitCode savedBytes}}{{/optimReport}}</li>
+        <li>{{name}} - {{#optimReport exitCode savedBytes}}{{/optimReport}}</li>
     {{/files}}
 {{else}}
     {{#files}}
-        <li><b>{{name}}</b> - {{#lintReport exitCode isOptimized}}{{/lintReport}}</li>
+        <li>{{name}} - {{#lintReport exitCode isOptimized}}{{/lintReport}}</li>
     {{/files}}
 {{/if}}
 </ul>
