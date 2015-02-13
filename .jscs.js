@@ -23,7 +23,7 @@ module.exports = {
     disallowQuotedKeysInObjects: 'allButReserved',
     disallowSpaceAfterObjectKeys: true,
     requireCommaBeforeLineBreak: true,
-    requireOperatorBeforeLineBreak: true,
+    requireOperatorBeforeLineBreak: ['=', '+', '-', '/', '*', '===', '!==', '>', '>=', '<', '<='],
     disallowSpaceAfterPrefixUnaryOperators: true,
     disallowSpaceBeforePostfixUnaryOperators: true,
     requireSpaceBeforeBinaryOperators: true,

@@ -1,0 +1,12 @@
+<h1>imageoptim</h1>
+<ul>
+{{#if isOptimMode}}
+    {{#files}}
+        <li><b>{{name}}</b> - {{#optimReport exitCode savedBytes}}{{/optimReport}}</li>
+    {{/files}}
+{{else}}
+    {{#files}}
+        <li><b>{{name}}</b> - {{#lintReport exitCode isOptimized}}{{/lintReport}}</li>
+    {{/files}}
+{{/if}}
+</ul>
