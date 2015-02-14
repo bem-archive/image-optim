@@ -39,6 +39,10 @@ var imageOptim = require('imageoptim');
 Optimizes the given files.
 
 **@param** *{Array}* – a list of paths to files to optimize<br>
+**@param** *{Object}* – options:<br>
+
+  * **reporters** *{Array}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creats the HTML report of the results in file `imageoptim-report.html`.
+
 **@returns** *{Promise * Array}* – the information about optimized files:<br>
 
 ```js
@@ -53,6 +57,8 @@ Checks whether the given files can be optimized further.
 **@param** *{Object}* – options:<br>
 
   * **tolerance** *{Number}* – sets the _measurement error_ in percentages. The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value.
+
+  * **reporters** *{Array}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creats the HTML report of the results in file `imageoptim-report.html`.
 
 **@returns** *{Promise * Array}* – the information about linted files:<br>
 
@@ -86,6 +92,7 @@ Options:
   -v, --version : Shows the version number
   -l, --lint : Lint mode
   -t TOLERANCE, --tolerance=TOLERANCE : Sets the measurement error in percentages (default: 0)
+  -r REPORTERS, --reporter=REPORTERS : flat or/and html (default: flat)
 
 Arguments:
   FILES : Paths to files (required)
