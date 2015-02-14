@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.3.0
+-----
+
+* Added the _HTML_ and _flat_ reporters of the results.
+
 0.2.0
 -----
 
