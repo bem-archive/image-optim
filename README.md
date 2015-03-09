@@ -9,8 +9,8 @@ Node.js wrapper for some images compression algorithms.
 - [Install](#install)
 - [Usage](#usage)
   - [API](#api)
-    - [optim](#imageoptimoptim)
-    - [lint](#imageoptimlint)
+    - [imageOptim.optim](#imageoptimoptim)
+    - [imageOptim.lint](#imageoptimlint)
     - [SUCCESS](#imageoptimsuccess)
     - [CANT_COMPRESS](#imageoptimcant_compress)
     - [DOESNT_EXIST](#imageoptimdoesnt_exist)
@@ -51,7 +51,6 @@ This command will install **image-optim** and all supported compression algorith
 var imageOptim = require('imageoptim');
 ```
 
-<!-- TOC:optim -->
 #### imageOptim.optim
 
 Optimizes the given files.
@@ -67,7 +66,6 @@ Optimizes the given files.
 [{ name: 'file.ext', savedBytes: 12345, exitCode: 0 }]
 ```
 
-<!-- TOC:lint -->
 #### imageOptim.lint
 
 Checks whether the given files can be optimized further.
