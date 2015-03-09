@@ -28,7 +28,7 @@ Supporting of other types of images are coming soon.
 
 You can view all the _patches_ which are applied to the algorithms [here](https://github.com/eGavr/image-optim/tree/master/patch).
 
-<!-- TOC:Overview -->
+<!-- TOC:display:Overview -->
 #### Overview:
 
 * **optipng.patch** – adds to **OptiPNG** the ability to remove _RGB_ components or transparent pixels in _RGB+alpha_ images.
@@ -83,17 +83,17 @@ Checks whether the given files can be optimized further.
 [{ name: 'file.ext', isOptimized: false, exitCode: 0 }]
 ```
 
-<!-- TOC:SUCCESS -->
+<!-- TOC:display:SUCCESS -->
 #### imageOptim.SUCCESS
 
 If the file was processed without errors its exit code will be equal to `0`.
 
-<!-- TOC:CANT_COMPRESS -->
+<!-- TOC:display:CANT_COMPRESS -->
 #### imageOptim.CANT_COMPRESS
 
 If the file can not be compressed its exit code will be equal to `1`.
 
-<!-- TOC:DOESNT_EXIST -->
+<!-- TOC:display:DOESNT_EXIST -->
 #### imageOptim.DOESNT_EXIST
 
 If the file does not exist its exit code will be equal to `2`.
