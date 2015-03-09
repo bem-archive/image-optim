@@ -2,6 +2,22 @@
 
 Node.js wrapper for some images compression algorithms.
 
+<!-- TOC -->
+- [Types](#types)
+- [Patches](#patches)
+  - [Overview](#overview)
+- [Install](#install)
+- [Usage](#usage)
+  - [API](#api)
+    - [optim](#imageoptimoptim)
+    - [lint](#imageoptimlint)
+    - [SUCCESS](#imageoptimsuccess)
+    - [CANT_COMPRESS](#imageoptimcant_compress)
+    - [DOESNT_EXIST](#imageoptimdoesnt_exist)
+  - [CLI](#cli)
+
+<!-- TOC END -->
+
 ## Types
 
 * PNG – [PNGOUT](http://www.advsys.net/ken/util/pngout.htm), [Zopflipng](https://github.com/pornel/zopfli), [Pngcrush](http://pmt.sourceforge.net/pngcrush/), [AdvPng](http://advancemame.sourceforge.net/doc-advpng.html) and [OptiPNG](http://optipng.sourceforge.net/).
@@ -12,6 +28,7 @@ Supporting of other types of images are coming soon.
 
 You can view all the _patches_ which are applied to the algorithms [here](https://github.com/eGavr/image-optim/tree/master/patch).
 
+<!-- TOC:Overview -->
 #### Overview:
 
 * **optipng.patch** – adds to **OptiPNG** the ability to remove _RGB_ components or transparent pixels in _RGB+alpha_ images.
@@ -34,6 +51,7 @@ This command will install **image-optim** and all supported compression algorith
 var imageOptim = require('imageoptim');
 ```
 
+<!-- TOC:optim -->
 #### imageOptim.optim
 
 Optimizes the given files.
@@ -49,6 +67,7 @@ Optimizes the given files.
 [{ name: 'file.ext', savedBytes: 12345, exitCode: 0 }]
 ```
 
+<!-- TOC:lint -->
 #### imageOptim.lint
 
 Checks whether the given files can be optimized further.
@@ -66,14 +85,17 @@ Checks whether the given files can be optimized further.
 [{ name: 'file.ext', isOptimized: false, exitCode: 0 }]
 ```
 
+<!-- TOC:SUCCESS -->
 #### imageOptim.SUCCESS
 
 If the file was processed without errors its exit code will be equal to `0`.
 
+<!-- TOC:CANT_COMPRESS -->
 #### imageOptim.CANT_COMPRESS
 
 If the file can not be compressed its exit code will be equal to `1`.
 
+<!-- TOC:DOESNT_EXIST -->
 #### imageOptim.DOESNT_EXIST
 
 If the file does not exist its exit code will be equal to `2`.
