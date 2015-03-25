@@ -19,9 +19,9 @@ describe('reporters', function () {
 
         it('must report optim results', function (done) {
             var input = [
-                    { name: 'file.ext', savedBytes: 100500, exitCode: 0 },
                     { name: 'file.fake', exitCode: 1 },
-                    { name: 'fake.ext', exitCode: 2 }
+                    { name: 'fake.ext', exitCode: 2 },
+                    { name: 'file.ext', savedBytes: 100500, exitCode: 0 }
                 ],
                 output = require('./fixtures/optim');
 
@@ -34,9 +34,9 @@ describe('reporters', function () {
 
         it('must report lint results', function (done) {
             var input = [
-                    { name: 'file1.ext', isOptimized: true, exitCode: 0 },
-                    { name: 'file2.ext', isOptimized: false, exitCode: 0 },
                     { name: 'file.fake', exitCode: 1 },
+                    { name: 'file2.ext', isOptimized: false, exitCode: 0 },
+                    { name: 'file1.ext', isOptimized: true, exitCode: 0 },
                     { name: 'fake.ext', exitCode: 2 }
                 ],
                 output = require('./fixtures/lint');
@@ -68,9 +68,9 @@ describe('reporters', function () {
 
         it('must report optim results', function (done) {
             var input = [
-                    { name: 'file.ext', savedBytes: 100500, exitCode: 0 },
                     { name: 'file.fake', exitCode: 1 },
-                    { name: 'fake.ext', exitCode: 2 }
+                    { name: 'fake.ext', exitCode: 2 },
+                    { name: 'file.ext', savedBytes: 100500, exitCode: 0 }
                 ],
                 output = fs.readFileSync(path.join(__dirname, 'fixtures/optim.html'), 'utf-8');
 
@@ -83,9 +83,9 @@ describe('reporters', function () {
 
         it('must report lint results', function (done) {
             var input = [
-                    { name: 'file1.ext', isOptimized: true, exitCode: 0 },
-                    { name: 'file2.ext', isOptimized: false, exitCode: 0 },
                     { name: 'file.fake', exitCode: 1 },
+                    { name: 'file2.ext', isOptimized: false, exitCode: 0 },
+                    { name: 'file1.ext', isOptimized: true, exitCode: 0 },
                     { name: 'fake.ext', exitCode: 2 }
                 ],
                 output = fs.readFileSync(path.join(__dirname, 'fixtures/lint.html'), 'utf-8');
