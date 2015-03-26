@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.3.2
+-----
+
+* Added sorting of results in reports by property `isOptimized` (in _html_ report not optimized files come first, in _flat_ report not optimized files come last).
+
 0.3.1
 -----
 
