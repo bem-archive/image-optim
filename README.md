@@ -91,17 +91,17 @@ Checks whether the given files can be optimized further.
 <!-- TOC:display:SUCCESS -->
 ##### imageOptim.SUCCESS
 
-If the file was processed without errors its exit code will be equal to `0`.
+If a file was processed without errors its exit code will be equal to `0`.
 
 <!-- TOC:display:CANT_COMPRESS -->
 ##### imageOptim.CANT_COMPRESS
 
-If the file can not be compressed its exit code will be equal to `1`.
+If a file can not be processed by one of the algorithms its exit code will be equal to `1`.
 
 <!-- TOC:display:DOESNT_EXIST -->
 ##### imageOptim.DOESNT_EXIST
 
-If the file does not exist its exit code will be equal to `2`.
+If a file does not exist its exit code will be equal to `2`.
 
 #### Example
 
