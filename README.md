@@ -11,10 +11,13 @@ Node.js wrapper for some images compression algorithms.
   - [API](#api)
     - [imageOptim.optim](#imageoptimoptim)
     - [imageOptim.lint](#imageoptimlint)
-    - [SUCCESS](#imageoptimsuccess)
-    - [CANT_COMPRESS](#imageoptimcant_compress)
-    - [DOESNT_EXIST](#imageoptimdoesnt_exist)
+    - [Exit code](#exit-code)
+      - [SUCCESS](#imageoptimsuccess)
+      - [CANT_COMPRESS](#imageoptimcant_compress)
+      - [DOESNT_EXIST](#imageoptimdoesnt_exist)
+    - [Example](#example)
   - [CLI](#cli)
+    - [Example](#example-1)
 
 <!-- TOC END -->
 
@@ -22,7 +25,7 @@ Node.js wrapper for some images compression algorithms.
 
 * PNG – [PNGOUT](http://www.advsys.net/ken/util/pngout.htm), [Zopflipng](https://github.com/pornel/zopfli), [Pngcrush](http://pmt.sourceforge.net/pngcrush/), [AdvPng](http://advancemame.sourceforge.net/doc-advpng.html) and [OptiPNG](http://optipng.sourceforge.net/).
 
-Supporting of other types of images are coming soon.
+Supporting of other types of images is coming soon.
 
 ## Patches
 
@@ -55,12 +58,12 @@ var imageOptim = require('imageoptim');
 
 Optimizes the given files.
 
-**@param** *{Array}* – a list of paths to files to optimize<br>
+**@param** *{String[]}* – a list of paths to files to optimize<br>
 **@param** *{Object}* – options:<br>
 
-  * **reporters** *{Array}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creats the HTML report of the results in file `imageoptim-report.html`.
+  * **reporters** *{String[]}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creates the HTML report of the results in file `imageoptim-report.html`.
 
-**@returns** *{Promise * Array}* – the information about optimized files:<br>
+**@returns** *{Promise * Object[]}* – the information about optimized files:<br>
 
 ```js
 [{ name: 'file.ext', savedBytes: 12345, exitCode: 0 }]
@@ -70,33 +73,55 @@ Optimizes the given files.
 
 Checks whether the given files can be optimized further.
 
-**@param** *{Array}* – a list of paths to files to check<br>
+**@param** *{String[]}* – a list of paths to files to check<br>
 **@param** *{Object}* – options:<br>
 
   * **tolerance** *{Number}* – sets the _measurement error_ in percentages. The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value.
 
-  * **reporters** *{Array}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creats the HTML report of the results in file `imageoptim-report.html`.
+  * **reporters** *{String[]}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creates the HTML report of the results in file `imageoptim-report.html`.
 
-**@returns** *{Promise * Array}* – the information about linted files:<br>
+**@returns** *{Promise * Object[]}* – the information about linted files:<br>
 
 ```js
-[{ name: 'file.ext', isOptimized: false, exitCode: 0 }]
+[{ name: 'file.ext', isOptimized: true, exitCode: 0 }]
 ```
 
+#### Exit code
+
 <!-- TOC:display:SUCCESS -->
-#### imageOptim.SUCCESS
+##### imageOptim.SUCCESS
 
 If the file was processed without errors its exit code will be equal to `0`.
 
 <!-- TOC:display:CANT_COMPRESS -->
-#### imageOptim.CANT_COMPRESS
+##### imageOptim.CANT_COMPRESS
 
 If the file can not be compressed its exit code will be equal to `1`.
 
 <!-- TOC:display:DOESNT_EXIST -->
-#### imageOptim.DOESNT_EXIST
+##### imageOptim.DOESNT_EXIST
 
 If the file does not exist its exit code will be equal to `2`.
+
+#### Example
+
+```js
+var imageOptim = require('imageoptim');
+
+// optimization
+imageOptim.optim(['1.png', '2.png'], { reporters: ['flat', 'html'] })
+    .then(function (res) {
+        console.log(res);
+    })
+    .done();
+
+// linting
+imageOptim.lint(['1.png', '2.png'], { tolerance: 0.8, reporters: ['flat', 'html'] })
+    .then(function (res) {
+        console.log(res);
+    })
+    .done();
+```
 
 ### CLI
 
@@ -116,4 +141,12 @@ Options:
 
 Arguments:
   FILES : Paths to files (required)
+```
+
+#### Example
+
+```bash
+$ imageoptim path/to/file1 path/to/file2 --reporter=flat --reporter=html # optimization
+
+$ imageoptim path/to/file1 path/to/file2 --lint --tolerance=0.8 --reporter=flat --reporter=html # linting
 ```
