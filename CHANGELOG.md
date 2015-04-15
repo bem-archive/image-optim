@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.3.3
+-----
+
+* Used the version of **Pngcrush** as in `ImageOptim@v1.5.4`.
+
 0.3.2
 -----
 
