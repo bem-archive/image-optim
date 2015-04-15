@@ -56,8 +56,8 @@
     "unit-test": "mocha test/unit/ test/reporters/",
     "func-test": "mocha test/image-optim/",
     "cover": "istanbul cover _mocha -- test/unit/ test/reporters/ test/image-optim/",
-    "env-setup": "./env-setup",
-    "env-clear": "./env-clear",
+    "env-setup": "./env/env-setup",
+    "env-clear": "./env/env-clear",
     "postinstall": "npm run env-clear && npm run env-setup"
   },
   "engines": {

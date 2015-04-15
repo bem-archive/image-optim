@@ -44,7 +44,7 @@ You can view all the _patches_ which are applied to the algorithms [here](https:
 $ npm install imageoptim
 ```
 
-This command will install **image-optim** and all supported compression algorithms automatically. The installation of the compression algorithms is subscribed in script [env-setup](https://github.com/eGavr/image-optim/blob/master/env-setup).
+This command will install **image-optim** and all supported compression algorithms automatically. The installation of the compression algorithms is subscribed in script [env-setup](https://github.com/eGavr/image-optim/blob/master/env/env-setup).
 
 ## Usage
 
