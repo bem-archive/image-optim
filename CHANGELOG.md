@@ -1,6 +1,12 @@
 History of changes
 ==================
 
+0.3.4
+-----
+
+* Updated **Zopflipng** to commit [Fix ColorIndex](https://github.com/pornel/zopfli/tree/0726c038cd3cdc788f3e8dfd33664bb999baaa59).
+* Updated **Pngcrush** to `v1.7.85`.
+
 0.3.3
 -----
 
