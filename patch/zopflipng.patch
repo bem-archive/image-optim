@@ -1,6 +1,6 @@
 --- a/src/zopflipng/zopflipng_lib.cc
 +++ b/src/zopflipng/zopflipng_lib.cc
-@@ -223,7 +223,7 @@
+@@ -277,7 +277,7 @@
 
    return 0;
  }
@@ -9,7 +9,7 @@
  // Use fast compression to check which PNG filter strategy gives the smallest
  // output. This allows to then do the slow and good compression only on that
  // filter type.
-@@ -250,15 +250,16 @@
+@@ -304,7 +304,7 @@
    size_t sizes_data[numstrategies];
    size_t *sizes = sizes_data;
 
@@ -18,10 +18,9 @@
      std::vector<unsigned char> out;
      out.clear();
      const lodepng::State statecopy(inputstate);
-
+@@ -312,7 +312,7 @@
      unsigned error = TryOptimize(image, w, h, statecopy, bit16, origfile,
                                   strategies[i], false, windowsize, 0, &out);
-+
      sizes[i] = error ? 0 : out.size();
 -  });
 +  }
