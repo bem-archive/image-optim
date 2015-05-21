@@ -61,7 +61,7 @@ Optimizes the given files.
 **@param** *{String[]}* – a list of paths to files to optimize<br>
 **@param** *{Object}* – options:<br>
 
-  * **reporters** *{String[]}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creates the HTML report of the results in file `imageoptim-report.html`.
+  * **reporters** *{String[]}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creates the HTML report of the results in file `imageoptim-report.html` (default: `flat`).
 
 **@returns** *{Promise * Object[]}* – the information about optimized files:<br>
 
@@ -76,9 +76,14 @@ Checks whether the given files can be optimized further.
 **@param** *{String[]}* – a list of paths to files to check<br>
 **@param** *{Object}* – options:<br>
 
-  * **tolerance** *{Number}* – sets the _measurement error_ in percentages. The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value.
+  * **tolerance** *{Number}* – sets the measurement error in _percentages_ (decimal, `< 1`) or _bytes_ (integer or decimal `>= 1`) (default: `0`).
 
-  * **reporters** *{String[]}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creates the HTML report of the results in file `imageoptim-report.html`.
+type | skope | description
+--- | --- | ---
+_percentages_ | **< 1** | The file will be considered to be optimized if the percentage of saved bytes after the compression is less than the specified value (_0.8_ – `80%`, _0.01_ – `1%`, etc)
+_bytes_ | **>= 1** | The file will be considered to be optimized if the number of saved bytes after the compression is less than the specified value (_20_ – `20 bytes`, _100500_ – `100500 bytes`, etc)
+
+  * **reporters** *{String[]}* - reporters of the results. _flat_ - writes the results to `stdout`, _html_ - creates the HTML report of the results in file `imageoptim-report.html` (default: `flat`).
 
 **@returns** *{Promise * Object[]}* – the information about linted files:<br>
 
@@ -116,7 +121,11 @@ imageOptim.optim(['1.png', '2.png'], { reporters: ['flat', 'html'] })
     .done();
 
 // linting
-imageOptim.lint(['1.png', '2.png'], { tolerance: 0.8, reporters: ['flat', 'html'] })
+imageOptim.lint(['1.png', '2.png'], {
+        tolerance: 0.08,
+        // tolerance: 20,
+        reporters: ['flat', 'html']
+    })
     .then(function (res) {
         console.log(res);
     })
@@ -136,17 +145,21 @@ Options:
   -h, --help : Help
   -v, --version : Shows the version number
   -l, --lint : Lint mode
-  -t TOLERANCE, --tolerance=TOLERANCE : Sets the measurement error in percentages (default: 0)
+  -t TOLERANCE, --tolerance=TOLERANCE : sets the measurement error in percentages or bytes (default: 0)
   -r REPORTERS, --reporter=REPORTERS : flat or/and html (default: flat)
 
 Arguments:
   FILES : Paths to files (required)
 ```
 
+**REMARK!** More information about options `lint` and `tolerance` can be found in the [API](#imageoptimlint).
+
 #### Example
 
 ```bash
 $ imageoptim path/to/file1 path/to/file2 --reporter=flat --reporter=html # optimization
 
-$ imageoptim path/to/file1 path/to/file2 --lint --tolerance=0.8 --reporter=flat --reporter=html # linting
+$ imageoptim path/to/file --lint --tolerance=0.08 --reporter=flat --reporter=html # linting, tolerance is `8%`
+
+$ imageoptim path/to/file --lint --tolerance=20 # linting, tolerance is `20 bytes`
 ```
