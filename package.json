@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "MD5": "1.2.1",
+    "chalk": "1.0.0",
     "coa": "0.4.1",
-    "colors": "1.0.3",
     "handlebars": "3.0.0",
     "image-type": "2.0.1",
     "inherit": "2.2.2",
