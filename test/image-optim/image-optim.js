@@ -3,150 +3,311 @@ var Q = require('q'),
     mockFs = require('mock-fs'),
     File = require('../../lib/file'),
     imageOptim = require('../../lib/image-optim'),
-    PNG_IMG = new Buffer([137, 80, 78, 71]),
-    algorithm1, algorithm2;
+    FlatReporter = require('../../lib/reporters/flat-reporter'),
+    HtmlReporter = require('../../lib/reporters/html-reporter');
 
 describe('image-optim', function () {
+    var sandbox = sinon.sandbox.create(),
+        PNG_IMG = new Buffer([137, 80, 78, 71]),
+        FILE_SIZE = 10,
+        algorithms = {};
+
     beforeEach(function () {
         mockFs({
-            'file.ext': Buffer.concat([PNG_IMG, new Buffer(6)]),
+            'file.ext': Buffer.concat([PNG_IMG, new Buffer(6)]), // FILE_SIZE === 10
 
             'file.algorithm1.ext': '',
             'file.algorithm2.ext': ''
         });
 
-        algorithm1 = sinon.stub(),
-        algorithm2 = sinon.stub();
+        algorithms = {
+            algorithm1: sinon.stub(),
+            algorithm2: sinon.stub()
+        };
+
+        sandbox.stub(FlatReporter.prototype);
+        sandbox.stub(HtmlReporter.prototype);
     });
 
     afterEach(function () {
         mockFs.restore();
+
+        sandbox.restore();
     });
 
+    /**
+     * @param {String} algorithm
+     * @param {Number} compression
+     * @returns {undefined}
+     */
+    function _setCompression(algorithm, compression) {
+        algorithms[algorithm]
+            .returns(Q.resolve(new File('file.' + algorithm + '.ext', FILE_SIZE + compression)));
+    }
+
+    /**
+     * @param {String[]} files
+     * @param {Function[]} algorithms
+     * @param {Object}   [opts]
+     * @param {String[]} [opts.reporters]
+     * @returns {Promise * Object}
+     */
+    function _optim(files, algorithms, opts) {
+        return imageOptim(files, 'optim', { png: algorithms || [] }, opts);
+    }
+
+    /**
+     * @param {String[]} files
+     * @param {Function[]} algorithms
+     * @param {Object}   [opts]
+     * @param {String[]} [opts.reporters]
+     * @param {Number}   [opts.tolerance]
+     * @returns {Promise * Object}
+     */
+    function _lint(files, algorithms, opts) {
+        return imageOptim(files, 'lint', { png: algorithms || [] }, opts);
+    }
+
     describe('optim', function () {
-        it('must optimize file', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, savedBytes: 2, exitCode: 0 }];
+        it('should NOT optimize a file (all algorithms do not give profit)', function (done) {
+            _setCompression('algorithm1', 0);
+            _setCompression('algorithm2', +1);
 
-            algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 9)));
-            algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 8)));
-
-            imageOptim([file], 'optim', { png: [algorithm1, algorithm2] })
+            _optim(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
                 .then(function (res) {
-                    res.must.be.eql(output);
+                    res.should.be.eql([{ name: 'file.ext', savedBytes: 0, exitCode: 0 }]);
                 })
                 .then(done, done);
         });
 
-        it('must NOT optimize file', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, savedBytes: 0, exitCode: 0 }];
+        describe('should optimize a file', function () {
+            it('all algorithms give profit', function (done) {
+                _setCompression('algorithm1', -1);
+                _setCompression('algorithm2', -2);
 
-            algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
-            algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 11)));
+                _optim(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
+                    .then(function (res) {
+                        res.should.be.eql([{ name: 'file.ext', savedBytes: 2, exitCode: 0 }]);
+                    })
+                    .then(done, done);
+            });
 
-            imageOptim([file], 'optim', { png: [algorithm1, algorithm2] })
+            it('only the first algorithm gives profit', function (done) {
+                _setCompression('algorithm1', -1);
+                _setCompression('algorithm2', +1);
+
+                _optim(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
+                    .then(function (res) {
+                        res.should.be.eql([{ name: 'file.ext', savedBytes: 1, exitCode: 0 }]);
+                    })
+                    .then(done, done);
+            });
+
+            it('only the last algorithm gives profit', function (done) {
+                _setCompression('algorithm1', -1);
+                _setCompression('algorithm2', +1);
+
+                _optim(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
+                    .then(function (res) {
+                        res.should.be.eql([{ name: 'file.ext', savedBytes: 1, exitCode: 0 }]);
+                    })
+                    .then(done, done);
+            });
+        });
+
+        it('should handle not existing file', function (done) {
+            _optim(['fake.ext'])
                 .then(function (res) {
-                    res.must.be.eql(output);
+                    res.should.be.eql([{ name: 'fake.ext', exitCode: 2 }]);
                 })
                 .then(done, done);
         });
 
-        it('must handle not existing file', function (done) {
-            var file = 'fake.ext',
-                output = [{ name: file, exitCode: 2 }];
+        it('should handle invalid file', function (done) {
+            algorithms.algorithm1.returns(Q.reject());
+            algorithms.algorithm2.returns(Q.reject());
 
-            imageOptim([file], 'optim', { png: [algorithm1, algorithm2] })
+            _optim(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
                 .then(function (res) {
-                    res.must.be.eql(output);
+                    algorithms.algorithm2.should.not.be.called;
+                    res.should.be.eql([{ name: 'file.ext', exitCode: 1 }]);
                 })
                 .then(done, done);
         });
 
-        it('must handle invalid file', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, exitCode: 1 }];
-
-            algorithm1.returns(Q.reject());
-            algorithm2.returns(Q.reject());
-
-            imageOptim([file], 'optim', { png: [algorithm1, algorithm2] })
-                .then(function (res) {
-                    algorithm2.callCount.must.be.equal(0);
-                    res.must.be.eql(output);
+        it('should report the results (`html` and `flat` reports)', function (done) {
+            _optim([], [], { reporters: ['flat', 'html'] })
+                .should.be.fulfilled
+                .then(function () {
+                    FlatReporter.prototype.write.should.be.called;
+                    HtmlReporter.prototype.write.should.be.called;
                 })
                 .then(done, done);
         });
     });
 
     describe('lint', function () {
-        it('must lint optimized file', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, isOptimized: true, exitCode: 0 }];
+        it('should lint optimized file (all algorithms do not give profit)', function (done) {
+            _setCompression('algorithm1', 0);
+            _setCompression('algorithm2', +1);
 
-            algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
-            algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 11)));
-
-            imageOptim([file], 'lint', { png: [algorithm1, algorithm2] })
+            _lint(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
                 .then(function (res) {
-                    res.must.be.eql(output);
+                    res.should.be.eql([{ name: 'file.ext', isOptimized: true, exitCode: 0 }]);
                 })
                 .then(done, done);
         });
 
-        it('must lint NOT optimized file', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, isOptimized: false, exitCode: 0 }];
+        describe('should lint NOT optimized file', function () {
+            it('all algorithms give profit', function (done) {
+                _setCompression('algorithm1', -1);
+                _setCompression('algorithm2', -2);
 
-            algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 9)));
-            algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 8)));
+                _lint(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
+                    .then(function (res) {
+                        algorithms.algorithm2.should.not.be.called;
+                        res.should.be.eql([{ name: 'file.ext', isOptimized: false, exitCode: 0 }]);
+                    })
+                    .then(done, done);
+            });
 
-            imageOptim([file], 'lint', { png: [algorithm1, algorithm2] })
+            it('only the last algorithm gives profit', function (done) {
+                _setCompression('algorithm1', +1);
+                _setCompression('algorithm2', -2);
+
+                _lint(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
+                    .then(function (res) {
+                        algorithms.algorithm1.should.be.called;
+                        res.should.be.eql([{ name: 'file.ext', isOptimized: false, exitCode: 0 }]);
+                    })
+                    .then(done, done);
+            });
+        });
+
+        it('should handle not existing file', function (done) {
+            _lint(['fake.ext'])
                 .then(function (res) {
-                    algorithm2.callCount.must.be.equal(0);
-                    res.must.be.eql(output);
+                    res.should.be.eql([{ name: 'fake.ext', exitCode: 2 }]);
                 })
                 .then(done, done);
         });
 
-        it('must handle not existing file', function (done) {
-            var file = 'fake.ext',
-                output = [{ name: file, exitCode: 2 }];
+        it('should handle invalid file', function (done) {
+            algorithms.algorithm1.returns(Q.reject());
+            algorithms.algorithm2.returns(Q.reject());
 
-            imageOptim([file], 'lint', { png: [algorithm1, algorithm2] })
+            _lint(['file.ext'], [algorithms.algorithm1, algorithms.algorithm2])
                 .then(function (res) {
-                    res.must.be.eql(output);
+                    algorithms.algorithm2.should.not.be.called;
+                    res.should.be.eql([{ name: 'file.ext', exitCode: 1 }]);
                 })
                 .then(done, done);
         });
 
-        it('must handle invalid file', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, exitCode: 1 }];
-
-            algorithm1.returns(Q.reject());
-            algorithm2.returns(Q.reject());
-
-            imageOptim([file], 'lint', { png: [algorithm1, algorithm2] })
-                .then(function (res) {
-                    algorithm2.callCount.must.be.equal(0);
-                    res.must.be.eql(output);
+        it('should report the results (`html` and `flat` reports)', function (done) {
+            _lint([], [], { reporters: ['flat', 'html'] })
+                .should.be.fulfilled
+                .then(function () {
+                    FlatReporter.prototype.write.should.be.called;
+                    HtmlReporter.prototype.write.should.be.called;
                 })
                 .then(done, done);
         });
 
-        it('must work option \'tolerance\'', function (done) {
-            var file = 'file.ext',
-                output = [{ name: file, isOptimized: true, exitCode: 0 }];
+        describe('tolerance', function () {
+            it('should throw on tolerance < 0', function () {
+                (function () {
+                    _lint([], [], { tolerance: -1 });
+                }).should.throw();
+            });
 
-            algorithm1.returns(Q.resolve(new File('file.algorithm1.ext', 10)));
-            algorithm2.returns(Q.resolve(new File('file.algorithm2.ext', 9)));
+            describe('should treat tolerance === 0 as percentages', function () {
+                it('should consider a file to be optimized', function (done) {
+                    _setCompression('algorithm1', 0);
 
-            imageOptim([file], 'lint', { png: [algorithm1, algorithm2] }, { tolerance: 10 })
-                .then(function (res) {
-                    res.must.be.eql(output);
-                })
-                .then(done, done);
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 0 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: true, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+
+                it('should consider a file to be NOT optimized', function (done) {
+                    _setCompression('algorithm1', -1);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 0 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: false, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+            });
+
+            describe('should treat tolerance (0, 1) as percentages', function () {
+                it('should consider a file to be optimized', function (done) {
+                    _setCompression('algorithm1', -1);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 0.1 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: true, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+
+                it('should consider a file to be NOT optimized', function (done) {
+                    _setCompression('algorithm1', -2);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 0.1 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: false, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+            });
+
+            describe('should treat tolerance === 1 as bytes', function () {
+                it('should consider a file to be optimized', function (done) {
+                    _setCompression('algorithm1', -1);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 1 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: true, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+
+                it('should consider a file to be NOT optimized', function (done) {
+                    _setCompression('algorithm1', -2);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 1 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: false, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+            });
+
+            describe('should treat tolerance > 1 as bytes', function () {
+                it('should consider a file to be optimized', function (done) {
+                    _setCompression('algorithm1', -2);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 2 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: true, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+
+                it('should consider a file to be NOT optimized', function (done) {
+                    _setCompression('algorithm1', -3);
+
+                    _lint(['file.ext'], [algorithms.algorithm1], { tolerance: 2 })
+                        .then(function (res) {
+                            res.should.be.eql([{ name: 'file.ext', isOptimized: false, exitCode: 0 }]);
+                        })
+                        .then(done, done);
+                });
+            });
         });
     });
 });

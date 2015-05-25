@@ -5,9 +5,26 @@ var path = require('path'),
     HtmlDiffer = require('html-differ').HtmlDiffer,
     htmlDiffer = new HtmlDiffer(),
     logger = require('html-differ/lib/logger'),
-    reporters = require('../../lib/reporters');
+    reporters = require('../../lib/reporters'),
+    BaseReporterClass = require('../../lib/reporters/reporter');
 
 describe('reporters', function () {
+    describe('base class', function () {
+        var baseReporterClass = new BaseReporterClass();
+
+        it('should throw on usage of private not implemeted method `_format`', function () {
+            (function () {
+                baseReporterClass._format();
+            }).should.throw();
+        });
+
+        it('should throw on usage of private not implemeted method `_handle`', function () {
+            (function () {
+                baseReporterClass._handle();
+            }).should.throw();
+        });
+    });
+
     describe('flat', function () {
         beforeEach(function () {
             sinon.stub(process.stdout, 'write');
@@ -17,7 +34,7 @@ describe('reporters', function () {
             process.stdout.write.restore();
         });
 
-        it('must report optim results', function (done) {
+        it('should report optim results', function (done) {
             var input = [
                     { name: 'file.fake', exitCode: 1 },
                     { name: 'fake.ext', exitCode: 2 },
@@ -27,12 +44,12 @@ describe('reporters', function () {
 
             reporters.mk('flat', 'optim').write(input)
                 .then(function () {
-                    process.stdout.write.lastCall.args[0].must.be.equal(output);
+                    process.stdout.write.lastCall.args[0].should.be.equal(output);
                 })
                 .then(done, done);
         });
 
-        it('must report lint results', function (done) {
+        it('should report lint results', function (done) {
             var input = [
                     { name: 'file.fake', exitCode: 1 },
                     { name: 'file2.ext', isOptimized: false, exitCode: 0 },
@@ -43,7 +60,7 @@ describe('reporters', function () {
 
             reporters.mk('flat', 'lint').write(input)
                 .then(function () {
-                    process.stdout.write.lastCall.args[0].must.be.equal(output);
+                    process.stdout.write.lastCall.args[0].should.be.equal(output);
                 })
                 .then(done, done);
         });
@@ -55,7 +72,7 @@ describe('reporters', function () {
                 diff = htmlDiffer.diffHtml(html, output);
 
             logger.logDiffText(diff, { charsAroundDiff: 40 });
-            htmlDiffer.isEqual(html, output).must.be(true);
+            htmlDiffer.isEqual(html, output).should.be.equal(true);
         }
 
         beforeEach(function () {
@@ -66,7 +83,7 @@ describe('reporters', function () {
             qfs.write.restore();
         });
 
-        it('must report optim results', function (done) {
+        it('should report optim results', function (done) {
             var input = [
                     { name: 'file.fake', exitCode: 1 },
                     { name: 'fake.ext', exitCode: 2 },
@@ -81,7 +98,7 @@ describe('reporters', function () {
                 .then(done, done);
         });
 
-        it('must report lint results', function (done) {
+        it('should report lint results', function (done) {
             var input = [
                     { name: 'file.fake', exitCode: 1 },
                     { name: 'file2.ext', isOptimized: false, exitCode: 0 },

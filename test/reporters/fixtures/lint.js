@@ -1,8 +1,11 @@
-require('colors');
+var chalk = require('chalk'),
+    bold = chalk.bold,
+    boldGreen = bold.green,
+    boldRed = bold.red;
 
 module.exports = [
-    'file1.ext'.bold + ' - ' + 'optimized'.bold.green,
-    'file2.ext'.bold + ' - ' + 'not optimized'.bold.red,
-    'file.fake'.bold + ' - ' + 'compression failed'.bold.red,
-    'fake.ext'.bold  + ' - ' + 'does not exist'.bold.red
+    bold('file1.ext') + ' - ' + boldGreen('optimized'),
+    bold('file2.ext') + ' - ' + boldRed('not optimized'),
+    bold('file.fake') + ' - ' + boldRed('compression failed'),
+    bold('fake.ext')  + ' - ' + boldRed('does not exist')
 ].join('\n') + '\n';
