@@ -76,7 +76,7 @@ Checks whether the given files can be optimized further.
 **@param** *{String[]}* – a list of paths to files to check<br>
 **@param** *{Object}* – options:<br>
 
-  * **tolerance** *{Number}* – sets the measurement error in _percentages_ (decimal, `< 1`) or _bytes_ (integer or decimal `>= 1`) (default: `0`).
+  * **tolerance** *{Number}* – sets the measurement error in _percentages_ (decimal `< 1`) or _bytes_ (integer or decimal `>= 1`) (default: `0`).
 
 type | skope | description
 --- | --- | ---
