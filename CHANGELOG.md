@@ -1,6 +1,13 @@
 History of changes
 ==================
 
+0.4.0
+-----
+
+**CAUTION!** Changes break the backward compatibility!
+
+* Tolerance (measurement error) can be set in percentages and bytes, see the [docs](https://github.com/eGavr/image-optim#imageoptimlint) for more details.
+
 0.3.4
 -----
 
