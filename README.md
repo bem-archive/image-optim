@@ -1,6 +1,6 @@
 # image-optim [![Build Status](https://travis-ci.org/eGavr/image-optim.svg)](https://travis-ci.org/eGavr/image-optim) [![Coverage Status](https://coveralls.io/repos/eGavr/image-optim/badge.svg?branch=master)](https://coveralls.io/r/eGavr/image-optim?branch=master) [![Dependency Status](https://david-dm.org/eGavr/image-optim.svg)](https://david-dm.org/eGavr/image-optim) [![devDependency Status](https://david-dm.org/eGavr/image-optim/dev-status.svg)](https://david-dm.org/eGavr/image-optim#info=devDependencies)
 
-Node.js wrapper for some images compression algorithms.
+Node.js wrapper for image compression algorithms.
 
 <!-- TOC -->
 - [Types](#types)
@@ -136,7 +136,7 @@ imageOptim.lint(['1.png', '2.png'], {
 
 ```bash
 $ imageoptim --help
-Node.js wrapper for some images compression algorithms
+Node.js wrapper for image compression algorithms
 
 Usage:
   imageoptim [OPTIONS] [ARGS]
