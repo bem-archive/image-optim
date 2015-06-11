@@ -6,7 +6,7 @@ History of changes
 
 **CAUTION!** Changes break the backward compatibility!
 
-* Tolerance (measurement error) can be set in percentages and bytes, see the [docs](https://github.com/eGavr/image-optim#imageoptimlint) for more details.
+* Tolerance (measurement error) can be set in percentages and bytes, see the [docs](https://github.com/bem/image-optim#imageoptimlint) for more details.
 
 0.3.4
 -----
@@ -47,7 +47,7 @@ History of changes
 
 * Fixed the work of the algorithms on _Linux_:
   * Used module [pngout-bin](https://github.com/imagemin/pngout-bin) for installing of **PNGOUT**.
-  * [Patched](https://github.com/eGavr/image-optim/blob/master/patch/zopflipng.patch) **Zopflipng**.
+  * [Patched](https://github.com/bem/image-optim/blob/master/patch/zopflipng.patch) **Zopflipng**.
 * Ported the patch for **OptiPNG** from [ImageOptim](https://github.com/pornel/ImageOptim).
 * Removed option _keep-chunks_ from the executable command of **Zopflipng**.
 * Moved **Zopflipng** on the second place in the optimization chain.
