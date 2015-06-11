@@ -12,8 +12,8 @@
     "image lint",
     "image linter"
   ],
-  "homepage": "https://github.com/eGavr/image-optim",
-  "bugs": "https://github.com/eGavr/image-optim/issues",
+  "homepage": "https://github.com/bem/image-optim",
+  "bugs": "https://github.com/bem/image-optim/issues",
   "author": {
     "name": "Evgeniy Gavryushin",
     "email": "job.egavr@yandex.ru",
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/eGavr/image-optim.git"
+    "url": "git://github.com/bem/image-optim.git"
   },
   "dependencies": {
     "MD5": "1.2.1",
@@ -67,7 +67,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/eGavr/image-optim/blob/master/LICENSE"
+      "url": "https://github.com/bem/image-optim/blob/master/LICENSE"
     }
   ]
 }

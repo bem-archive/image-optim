@@ -5,7 +5,7 @@ node_js:
 
 env:
   global:
-    - GH_REF: github.com/eGavr/image-optim.git
+    - GH_REF: github.com/bem/image-optim.git
     - ISTANBUL_COVERAGE: true
 
 after_success:

@@ -1,4 +1,4 @@
-# image-optim [![Build Status](https://travis-ci.org/eGavr/image-optim.svg)](https://travis-ci.org/eGavr/image-optim) [![Coverage Status](https://coveralls.io/repos/eGavr/image-optim/badge.svg?branch=master)](https://coveralls.io/r/eGavr/image-optim?branch=master) [![Dependency Status](https://david-dm.org/eGavr/image-optim.svg)](https://david-dm.org/eGavr/image-optim) [![devDependency Status](https://david-dm.org/eGavr/image-optim/dev-status.svg)](https://david-dm.org/eGavr/image-optim#info=devDependencies)
+# image-optim [![Build Status](https://travis-ci.org/bem/image-optim.svg)](https://travis-ci.org/bem/image-optim) [![Coverage Status](https://coveralls.io/repos/bem/image-optim/badge.svg?branch=master)](https://coveralls.io/r/bem/image-optim?branch=master) [![Dependency Status](https://david-dm.org/bem/image-optim.svg)](https://david-dm.org/bem/image-optim) [![devDependency Status](https://david-dm.org/bem/image-optim/dev-status.svg)](https://david-dm.org/bem/image-optim#info=devDependencies)
 
 Node.js wrapper for image compression algorithms.
 
@@ -29,7 +29,7 @@ Supporting of other types of images is coming soon.
 
 ## Patches
 
-You can view all the _patches_ which are applied to the algorithms [here](https://github.com/eGavr/image-optim/tree/master/patch).
+You can view all the _patches_ which are applied to the algorithms [here](https://github.com/bem/image-optim/tree/master/patch).
 
 <!-- TOC:display:Overview -->
 #### Overview:
@@ -44,7 +44,7 @@ You can view all the _patches_ which are applied to the algorithms [here](https:
 $ npm install imageoptim
 ```
 
-This command will install **image-optim** and all supported compression algorithms automatically. The installation of the compression algorithms is subscribed in script [env-setup](https://github.com/eGavr/image-optim/blob/master/env/env-setup).
+This command will install **image-optim** and all supported compression algorithms automatically. The installation of the compression algorithms is subscribed in script [env-setup](https://github.com/bem/image-optim/blob/master/env/env-setup).
 
 ## Usage
 
