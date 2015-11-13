@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.4.1
+-----
+
+* Fixed the downloading URL of **Pngcrush**, because it has been changed.
+
 0.4.0
 -----
 
