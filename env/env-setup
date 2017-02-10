@@ -9,7 +9,7 @@ mkdir $ROOT
 
 # Zopflipng
 echo 'Installing of Zopflipng...'
-git clone https://github.com/pornel/zopfli.git $ROOT/zopflipng && cd $_
+git clone https://github.com/ImageOptim/zopfli.git $ROOT/zopflipng && cd $_
 # checkout to the commit --> 'Fix ColorIndex'
 git checkout 0726c038cd3cdc788f3e8dfd33664bb999baaa59
 patch -p1 < ../../patch/zopflipng.patch
