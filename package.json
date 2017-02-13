@@ -1,6 +1,6 @@
 {
   "name": "imageoptim",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Node.js wrapper for some images compression algorithms",
   "keywords": [
     "optimizer",
