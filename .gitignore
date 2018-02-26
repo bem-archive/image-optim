@@ -1,3 +1,7 @@
 node_modules/
 coverage/
-compressors/
+compressors/zopflipng
+compressors/pngcrush
+compressors/advpng
+compressors/optipng
+
