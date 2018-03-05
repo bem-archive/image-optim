@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.5.0
+-----
+
+* All compressors go in bundle with `image-optim` (no additional external installations of them).
+
 0.4.1
 -----
 
