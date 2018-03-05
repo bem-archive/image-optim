@@ -2,4 +2,4 @@
 
 ROOT=$(cd $(dirname $0); pwd)/../compressors
 
-rm -rf $ROOT
+rm -rf $ROOT/{zopflipng,pngcrush,advpng,optipng}
